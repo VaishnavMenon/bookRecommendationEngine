@@ -35,7 +35,15 @@
             <div class="profileBar">
                 <div class="userName">
                     Logged User :
-                    <a>Nikhil Babu</a>
+                    
+                    <?php
+                        if(isset($_COOKIE["uname"])){ 
+                            echo $_COOKIE["uname"]; 
+                        } 
+                        else{ 
+                            echo "Not Logged In"; 
+                            } 
+                    ?>
                 </div>
                 <div class="userImg">
                     <img src="../../assets/46668690_2197581593863101_5053659812705861632_n.jpg">
@@ -103,14 +111,39 @@
                 </script>
                 </div>
                 <div class="bookCase">
+                <!--  <div><img src="../../assets/book4.jpg"></div>
                     <div><img src="../../assets/book4.jpg"></div>
                     <div><img src="../../assets/book4.jpg"></div>
                     <div><img src="../../assets/book4.jpg"></div>
                     <div><img src="../../assets/book4.jpg"></div>
                     <div><img src="../../assets/book4.jpg"></div>
                     <div><img src="../../assets/book4.jpg"></div>
-                    <div><img src="../../assets/book4.jpg"></div>
-                    <div><img src="../../assets/book4.jpg"></div>
+                    <div><img src="../../assets/book4.jpg"></div>-->
+                
+                <?php
+                    $host ="localhost";
+                    $uname = "root";
+                    $pwd = 'root@123';
+                    $db_name = "ASD";
+
+                    $file_path = '../../assets';
+                    $result = mysqli_connect($host,$uname,$pwd,$db_name) or die("Could     not                           connect to database." .mysqli_error());
+                    mysqli_select_db($result,$db_name) or die("Could not select    the database." .mysqli_error());
+                    $image_query = mysqli_query($result,"select book_img  from user_book");
+                    while($rows = mysqli_fetch_array($image_query))
+                    {
+                        $img_src = $rows['book_img'];
+                ?>
+<div >
+     
+        <img src="<?php echo $img_src; ?>" alt="" />
+     <!--   <p><strong><?php echo $img_name; ?></strong></p>-->
+     
+        </div>
+
+        <?php
+        }
+    ?>
                 </div>
             </div>
             <div class="recommend">
